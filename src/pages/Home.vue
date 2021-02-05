@@ -1,27 +1,47 @@
 <template>
   <section id="home" class="container">
-        <article v-for="item in filmes" :key="item.id">
+    <div v-if="loading">
+      <h1>Carregando</h1>
+    </div>
+    <article v-else v-for="item in filmes" :key="item.id" @click="selectMovie(item)">
+      <h1>{{item.title}}</h1> 
+          <img :src="`https://image.tmdb.org/t/p/w300${item.poster_path}`" :alt="`item.${item.title}`"/>
+    </article>
 
-          {{item.title}}
-              <img :src="`https://image.tmdb.org/t/p/w300${item.poster_path}`" :alt="`item.${original_title}`"/>
-        </article>
+    <Modal v-if="showModal" :movie="filme" @close="showModal = false">
+      <h1>{{filme.title}}</h1>
+    </Modal>
+
   </section>
 </template>
 
 <script>
 import api from "../services/api"
+import Modal from "../components/Modal"
 
 export default {
   name: 'Home',
+  components: {
+    Modal
+  },
   data() {
     return {
-      filmes: []
+      loading: true,
+      filmes: [],
+      filme: {},
+      showModal: false
+    }
+  },
+  methods: {
+    selectMovie(movie) {
+      this.showModal = true;
+      this.filme = movie
     }
   },
   async created() {
     const response = await api.get();
     this.filmes = response.data.results;
-    console.log(this.filmes)
+    this.loading = false;
   }
 }
 </script>
@@ -31,11 +51,22 @@ export default {
 section {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; align-items: center; background: chocolate;
+  justify-content: center; align-items: center;
+   max-width: 980px;
+}
+h1 {
+  font-size: 1.5rem;
 }
 article {
-  margin-top: 10px; display: flex; background: crimson;
+  color: white;
+  margin-top: 10px; display: flex; 
   flex-direction: column; align-items: center; 
-  flex: 4;
+  flex: 4; padding: 5px;
 }
+
+article:hover {
+  background: #7a1307;
+  cursor: pointer;
+}
+
 </style>
