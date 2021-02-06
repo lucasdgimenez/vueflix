@@ -35,4 +35,8 @@ img {
   font-size: 1.5rem;
   font-weight: bold;
 }
+
+.save:hover {
+  color: red;
+}
 </style>

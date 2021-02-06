@@ -28,6 +28,10 @@ img {
   display: block;
 }
 
+li {
+  list-style: none;
+}
+
 a {
   text-decoration: navajowhite;
 }
