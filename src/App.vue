@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <Home/>
+    <Header/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Home from './pages/Home.vue'
+import Header from './components/Header.vue'
 
 export default {
   name: 'App',
   components: {
-    Home
+    Header
   }
 }
 </script>
@@ -21,6 +22,14 @@ export default {
 }
 body {
   margin: 0; padding: 0; background: #000; 
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: navajowhite;
 }
 .container {
   max-width: 1200px;
