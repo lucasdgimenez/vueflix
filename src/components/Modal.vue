@@ -3,7 +3,7 @@
     <div class="container">
       <a @click="$emit('close')" class="close">X</a>
       <div class="movie">
-        <h1>{{movie.title}}</h1>
+        <h2>{{movie.title}}</h2>
         <img :src="`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`" :alt="`item.${movie.title}`"/>
         <span class="populary">Popularidade: {{movie.vote_average}}</span>
         <h4>Generos: </h4>
@@ -53,6 +53,7 @@ export default {
       }
       filmes.push(this.movie)
       localStorage.setItem('vuemovies', JSON.stringify(filmes))
+      alert("Filme salvo com sucesso")
     }
   }
 }
@@ -107,18 +108,6 @@ export default {
   border-radius: 50%;
   font-size: 2rem; float: right;
   color: white;
-}
-
-button {
-  background: #E6E6E6;
-  padding: 10px;
-  border-radius: 5%;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-button:hover {
-  background: #CCC;
 }
 
 

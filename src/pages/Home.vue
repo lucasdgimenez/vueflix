@@ -3,13 +3,13 @@
     <div v-if="loading">
       <h1>Carregando</h1>
     </div>
+
     <article v-else v-for="item in filmes" :key="item.id" @click="selectMovie(item)">
       <h1>{{item.title}}</h1> 
-          <img :src="`https://image.tmdb.org/t/p/w300${item.poster_path}`" :alt="`item.${item.title}`"/>
+      <img :src="`https://image.tmdb.org/t/p/w300${item.poster_path}`" :alt="`item.${item.title}`"/>
     </article>
-
+    
     <Modal v-if="showModal" :movie="filme" @close="showModal = false">
-      <h1>{{filme.title}}</h1>
     </Modal>
 
   </section>
@@ -52,9 +52,10 @@ export default {
 section {
   display: flex;
   flex-wrap: wrap;
+  max-width: 980px;
   justify-content: center; align-items: center;
-   max-width: 980px;
 }
+
 h1 {
   font-size: 1.5rem;
 }
@@ -68,6 +69,15 @@ article {
 article:hover {
   background: #7a1307;
   cursor: pointer;
+}
+
+.teste {
+  background: chocolate;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
 }
 
 </style>
