@@ -5,15 +5,11 @@
       <div class="movie">
         <h1>{{movie.title}}</h1>
         <img :src="`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`" :alt="`item.${movie.title}`"/>
-        <span>Popularidade: {{movie.vote_average}}</span>
-        <ul>
-          Generos: <li v-for="(item, index) in genreName" :key="index">
-            {{item }}
-          </li>
-        </ul>
+        <span class="populary">Popularidade: {{movie.vote_average}}</span>
+        <h4>Generos: </h4>
+        <p>{{genresReady}}</p>
         <p>{{movie.overview}}</p>
-        <p>{{movie}}</p>
-        <button>Salvar</button>
+        <button @click="saveMovie">Salvar</button>
       </div>
     </div>
   </div>
@@ -28,7 +24,8 @@ export default {
     return {
       genres: [], //todos os generos 
       genreId: [], //id dos generos do filme selecionado
-      genreName: [] //nome dos generos que vao aparecer
+      genreName: [], //nome dos generos que vao aparecer
+      genresReady: ''
     }
   },
   async created() {
@@ -44,13 +41,19 @@ export default {
         }
       })
     })
+    this.genresReady = this.genreName.toString()
   },
   methods: {
-   /* saveMovie() {
+     saveMovie() {
       const minhaLista = localStorage.getItem('vuemovies')
       let filmes = JSON.parse(minhaLista) || [];
-      const hasFilme = filmes.some((filme) => )
-    }*/
+      const hasFilme = filmes.some((filme) => filme.id === this.movie.id)
+      if(hasFilme) {
+        return;
+      }
+      filmes.push(this.movie)
+      localStorage.setItem('vuemovies', JSON.stringify(filmes))
+    }
   }
 }
 </script>
@@ -63,6 +66,7 @@ export default {
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
+  color: white;
 }
 .modal .container {
   position: fixed;
@@ -74,9 +78,10 @@ export default {
   margin: 0 auto;
   padding: 2rem;
   border-radius: 4px;
-  background: white;
+  background: #181818;
   box-shadow: 0 0 20px rgba(0,0,0,0.7);
   overflow: auto;
+  height: 60%;
 }
 
 .modal ul {
@@ -89,16 +94,32 @@ export default {
   font-weight: normal;
 }
 
+.populary {
+  color: green;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-top: 10px;
+}
 
 .close {
   cursor: pointer;
   padding: 10px;
   border-radius: 50%;
   font-size: 2rem; float: right;
+  color: white;
 }
 
-.close:hover {
+button {
+  background: #E6E6E6;
+  padding: 10px;
+  border-radius: 5%;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+button:hover {
   background: #CCC;
 }
+
 
 </style>
